@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fraud Detection System</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=2070');
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+}
+
+.container{
+    width:420px;
+    padding:35px;
+    border-radius:25px;
+    backdrop-filter: blur(18px);
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 8px 32px rgba(0,0,0,0.5);
+    animation:fadeIn 1s ease;
+    color:white;
+}
+
+.logo{
+    text-align:center;
+    font-size:55px;
+    color:#00d9ff;
+    margin-bottom:15px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:30px;
+    font-size:34px;
+}
+
+label{
+    font-weight:bold;
+    font-size:15px;
+}
+
+.input-box{
+    position:relative;
+    margin-top:10px;
+    margin-bottom:20px;
+}
+
+.input-box i{
+    position:absolute;
+    top:15px;
+    left:15px;
+    color:#00d9ff;
+}
+
+input,select{
+    width:100%;
+    padding:14px 14px 14px 45px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.15);
+    color:white;
+    font-size:15px;
+}
+
+select option{
+    color:black;
+}
+
+input::placeholder{
+    color:#ddd;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(to right,#8e2de2,#4a00e0);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+    margin-top:10px;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #8e2de2;
+}
+
+.result{
+    margin-top:25px;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    animation:pop 0.5s ease;
+}
+
+.fraud{
+    background:rgba(255,0,0,0.15);
+    border:2px solid red;
+    color:#ff4d4d;
+    box-shadow:0 0 20px red;
+}
+
+.safe{
+    background:rgba(0,255,0,0.15);
+    border:2px solid #00ff99;
+    color:#00ff99;
+    box-shadow:0 0 20px #00ff99;
+}
+
+.footer{
+    text-align:center;
+    margin-top:20px;
+    font-size:13px;
+    color:#ccc;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(-40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes pop{
+    0%{
+        transform:scale(0.5);
+        opacity:0;
+    }
+    100%{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="logo">
+<i class="fa-solid fa-shield-halved"></i>
+</div>
+
+<h1>Fraud Detection System</h1>
+
+<form action="/predict" method="POST">
+
+<label>Transaction Type</label>
+<div class="input-box">
+<i class="fa-solid fa-money-check-dollar"></i>
+<select name="type">
+<option>PAYMENT</option>
+<option>TRANSFER</option>
+</select>
+</div>
+
+<label>Amount</label>
+<div class="input-box">
+<i class="fa-solid fa-indian-rupee-sign"></i>
+<input type="number" name="amount" placeholder="Enter amount" required>
+</div>
+
+<label>Old Balance</label>
+<div class="input-box">
+<i class="fa-solid fa-wallet"></i>
+<input type="number" name="oldbalanceOrg" placeholder="Enter old balance" required>
+</div>
+
+<label>New Balance</label>
+<div class="input-box">
+<i class="fa-solid fa-wallet"></i>
+<input type="number" name="newbalanceOrig" placeholder="Enter new balance" required>
+</div>
+
+<button type="submit">
+<i class="fa-solid fa-magnifying-glass"></i>
+ Check Fraud
+</button>
+
+</form>
+
+{% if prediction %}
+
+<div class="result {% if prediction == 'Fraud' %}fraud{% else %}safe{% endif %}">
+
+{% if prediction == 'Fraud' %}
+⚠ Fraud Transaction Detected
+{% else %}
+✅ Genuine Transaction
+{% endif %}
+
+</div>
+
+{% endif %}
+
+<div class="footer">
+AI Powered Online Payment Security
+</div>
+
+</div>
+
+</body>
+</html>
