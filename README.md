@@ -102,7 +102,7 @@ http://127.0.0.1:5000
 Yogi Charan Sharma
 
 Portfolio:
-https://yogi-charan-sharma-portfolio.netlify.app/
+https:https://yogicharansharma.netlify.app/
 
 LinkedIn:
 https://www.linkedin.com/in/yogi-charan-sharma-235b62282
